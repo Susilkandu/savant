@@ -1,0 +1,25 @@
+img{
+    width: 7rem;
+    object-fit: contain;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 1px 5px 5px rgb(126, 123, 123);
+}
+.nav-menu{
+    width:40%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    list-style-type: none;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+    }

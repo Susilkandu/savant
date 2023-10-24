@@ -1,0 +1,47 @@
+.card
+{
+    max-width: 500px;
+    height: max-content;
+    margin: 25px auto;
+    border: 1px solid rgb(131, 128, 128);
+}
+.card-header{
+    display: flex;
+}
+.card-header>h5{
+    margin: 0;
+    padding: 11px;
+}
+.card-pic img{
+    width: 3rem;
+    border-radius: 1.7rem;
+    height: auto;
+    object-fit: contain;
+    padding: 5px;
+}
+.card-image img{
+    width: 100%;
+}
+.card-content{
+    text-align: left;
+    line-height: 3px;
+    padding:3px 10px;
+    border-bottom: 1px solid grey;
+}
+.add-comment{
+    display: flex;
+    align-items: center;
+}
+.add-comment input{
+    outline: none;
+    margin: 0px;
+    border: none;
+    padding: 8px;
+}
+.comment{
+    border: none;
+    background-color: none;
+    font-weight: bolder;
+    cursor: pointer;
+    color: rgb(28, 109, 249);
+}

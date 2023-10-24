@@ -1,0 +1,29 @@
+.createPost{
+    max-width: 500px;
+    margin:10px auto;
+    border:1px solid grey;
+    border-radius: 0.3rem;
+}
+.post-header
+{
+    border-bottom: 1px solid grey;
+    display: flex;
+}
+#post-btn{
+border: none;
+background-color: none;
+color: rgb(0 69 130);
+font-weight: bolder;
+cursor: pointer;
+}
+textarea{
+    border: none;
+    width: 95%;
+    line-height: 1;
+    margin: auto;
+}
+#output{
+    width: -webkit-fill-available;
+    height: 29rem;
+    margin-top: 5px;
+}
