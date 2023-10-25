@@ -15,7 +15,7 @@ export default function Home() {
           <img src="https://images.unsplash.com/photo-1452269826925-82be65baa057?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHlvdW5nJTIwYWR1bHR8ZW58MHx8MHx8fDA%3D" alt="" />
         </div>
         <div className="card-content">
-        <span className="material-symbols-outlined">favorite</span>
+        <span className="material-symbols-outlined">like</span>
         <p>1 Like</p>
         <p>This is Amazinggg moment 💕💕💕</p>
         </div>
