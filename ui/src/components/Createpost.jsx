@@ -3,19 +3,39 @@ import { useState } from 'react'
 export default function Createpost() {
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
-
-    const postDetails = async() => {
-        console.log(body, image)
+    const [picurl, setUrl] = useState("")
+    const postForm=()=>{
+        fetch("http://localhost:3000/createpost",{
+            method:"post",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                body,
+                photo:picurl,
+                title:"maro Balam Thanedar "
+            })
+        }).then(res=>res.json())
+        .then(data=>console.log("helloJi"))
+        .catch(err=>console.log(err))
+    }
+    const postDetails = () => {
+        // console.log(body, image)
         const data = new FormData()
         data.append("file", image)
-        data.append("upload_preset", "instaClone")
+        data.append("upload_preset", "insta-clone")
         data.append("cloud_name","kanducloud")
         fetch('https://api.cloudinary.com/v1_1/kanducloud/image/upload',{
             method:'post',
             body: data
         }).then(res=> res.json())
-        .then(data=> console.log(data))
-        .catch(err => console.log(err))
+        .then(data=> {setUrl(data.url)
+            console.log(picurl)
+            postForm()
+    })
+    .catch(err => console.log(err))
+    
     }
     const showPreview = (event) => {
         var output = document.getElementById('output')

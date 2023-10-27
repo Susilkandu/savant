@@ -19,7 +19,7 @@ export default function SignIn() {
     }
     else
     {
-    fetch("http://localhost:8000/signin",{
+    fetch("http://localhost:3000/signin",{
       method:"post",
       headers:{
         "Content-Type":"application/json"
@@ -35,6 +35,7 @@ export default function SignIn() {
       }else
       {
         toast.success(data.message)
+        localStorage.setItem("jwt",data.message)
         navigate("/")
       }
     })
