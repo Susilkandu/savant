@@ -1,10 +1,13 @@
 import './Createpost.css'
 import { useState } from 'react'
+import {toast} from 'react-toastify'
+import {useNavigate} from 'react-router-dom'
 export default function Createpost() {
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
-    const [picurl, setUrl] = useState("")
-    const postForm=()=>{
+    const [picurl, setpicUrl] = useState("")
+    const navigate = useNavigate()
+    const postForm = ()=>{
         fetch("http://localhost:3000/createpost",{
             method:"post",
             headers:{
@@ -13,12 +16,16 @@ export default function Createpost() {
             },
             body:JSON.stringify({
                 body,
-                photo:picurl,
-                title:"maro Balam Thanedar "
+                picUrl:picurl
             })
         }).then(res=>res.json())
-        .then(data=>console.log("helloJi"))
-        .catch(err=>console.log(err))
+        .then(data=>{if(data.error){
+            toast.error(data.error)
+        }else{
+            toast.success(data.message)
+            navigate('/')
+        }})
+        .catch(err=>{toast.error(err)})
     }
     const postDetails = () => {
         // console.log(body, image)
@@ -30,11 +37,11 @@ export default function Createpost() {
             method:'post',
             body: data
         }).then(res=> res.json())
-        .then(data=> {setUrl(data.url)
-            console.log(picurl)
+        .then(data=> {setpicUrl(data.url)
+            console.log("hello"+ picurl)
             postForm()
     })
-    .catch(err => console.log(err))
+    .catch(err => toast.error(error))
     
     }
     const showPreview = (event) => {

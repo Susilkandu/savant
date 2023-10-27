@@ -5,20 +5,20 @@ const post = mongoose.model('post');
 const requireLogin = require("../middlewares/requireLogin")
 // Route
 router.post("/createPost",requireLogin,(req,res)=>{
-const {title, body} = req.body;
-if(!title || !body){
+const {picUrl, body} = req.body;
+if(!picUrl || !body){
     return res.status(422).json({error: "Please add all the fields"});
 }
 req.user
 const Post = new post({
-    title,
+    picUrl,
     body,
-    postedBy: req. user
+    postedBy: req.user
 });
 Post.save().then((result)=>{
-    return res.json({post:result})
+    return res.json({message:"Posted Succussfully"})
 }).catch(err=>{
-    console.log(err)
+    return res.json({message:err})
 })
 });
 module.exports= router;

@@ -1,21 +1,18 @@
 const mongoose= require('mongoose');
 const {ObjectId} = mongoose.Schema.Types;
 const postSchema = new mongoose.Schema({
-    title:{
+    picUrl:{
         type:String,
-        required:true
+        required:true,
+        default:'no-pic'
     },
     body:{
         type:String,
         required:true
     },
-    photo:{
-        type:String,
-        required:true,
-        default:'no photo'
-    },
     postedBy:{
     type: ObjectId,
+    required:true,
     ref: 'user'
     }
 })
