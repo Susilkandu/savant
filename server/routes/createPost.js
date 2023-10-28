@@ -21,4 +21,10 @@ Post.save().then((result)=>{
     return res.json({message:err})
 })
 });
+router.get("/allposts",requireLogin,(req,res)=>{
+    post.find()
+    .populate("postedBy", "_id name")
+    .then(posts=> res.json(posts))
+    .catch(err => res.json({error:err}))
+})
 module.exports= router;

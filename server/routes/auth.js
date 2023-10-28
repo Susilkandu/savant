@@ -56,7 +56,6 @@ router.post('/signin',(req,res)=>{
                     if(result)
                     {
                         const token = jwt.sign({_id:data._id},process.env.jwtKeys);
-                        console.log(token)
                         res.json({message:`${token}`})
                         //  res.status(200).json({message:"logined Succussfully"})
                     }

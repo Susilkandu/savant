@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect,useContext ,useState } from 'react'
+import { LoginContext } from '../context/LoginContex'
 import logo from '../assets/icon.png'
 import './Navbar.css'
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
@@ -9,16 +10,33 @@ import Profile from './Profile'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Createpost from './Createpost'
-export default function Navbar() {
+import Modal from './Modal'
+export default function Navbar(login,modalOpen) {
+  const {setModalOpen} = useContext(LoginContext)
+  const token= localStorage.getItem('jwt')
+ const loginStatus=()=>{ if(token||login){
+    return(
+      <>
+          <Link to={'/profile'}><li>Profile</li></Link>
+          <Link to={'/createPost'}><li>Create Post</li></Link>
+          <Link to={""}>
+            <button className='primaryBtn' onClick={setModalOpen(true)}>Log Out</button>
+          </Link>
+      </>
+    )
+  }else{
+    <>
+         <Link to={'/signup'}><li>SignUp</li></Link>
+         <Link to={'/signin'}><li>SignIn</li></Link>
+    </>
+  }
+}
   return (
     <BrowserRouter>
      <div className='navbar'>
         <img src={logo} alt="" />
       <ul className='nav-menu'>
-        <Link to={'/signup'}><li>SignUp</li></Link>
-        <Link to={'/signin'}><li>SignIn</li></Link>
-        <Link to={'/profile'}><li>Profile</li></Link>
-        <Link to={'/createPost'}><li>Create Post</li></Link>
+        {loginStatus()}      
       </ul>
     </div>
     <Routes>
@@ -29,6 +47,7 @@ export default function Navbar() {
       <Route path='/createPost' element={<Createpost/>}></Route>
     </Routes>
     <ToastContainer/>
+    { modalOpen && < Modal setModalOpen={setModalOpen}/>}
     </BrowserRouter>
   )
 }

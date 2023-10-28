@@ -1,10 +1,12 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState , useContext} from 'react'
 import logo from '../assets/icon.png'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import './Signin.css'
 import { toast } from 'react-toastify'
+import { LoginContext } from '../context/LoginContex'
 export default function SignIn() {
+  const {setUserLogin} = useContext(LoginContext) 
   const navigate= useNavigate(); 
   const [email,setEmail]= useState("")
   const [password,setPassword] = useState("")
@@ -34,8 +36,9 @@ export default function SignIn() {
         toast.error(data.error)
       }else
       {
-        toast.success(data.message)
+        toast.success('Signed In Succussfully')
         localStorage.setItem("jwt",data.message)
+        setUserLogin(true)
         navigate("/")
       }
     })
