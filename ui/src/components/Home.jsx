@@ -29,7 +29,7 @@ useEffect(()=>{
     {posts.map((post)=>{
       return(
         <>
-         <div className="card" >
+         <div className="card" key={post.picUrl+'1'} >
         <div className="card-header">
          <div className="card-pic">
           <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=1480&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />

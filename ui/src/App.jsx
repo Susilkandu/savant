@@ -7,8 +7,8 @@ const [userLogin, setUserLogin] = useState(false)
 const [modalOpen, setModalOpen] = useState(false)
   return (
     <>
-    <LoginContext.Provider value={{setUserLogin, setModalOpen}}>
-    <Navbar login={[userLogin , modalOpen]}/>
+    <LoginContext.Provider value={{setUserLogin, setModalOpen, modalOpen, userLogin}}>
+    <Navbar />
     </LoginContext.Provider>
     </>
   )

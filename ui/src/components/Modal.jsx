@@ -1,8 +1,17 @@
-import React from 'react'
+import React ,{useContext}from 'react'
 import {RiCloseLine} from 'react-icons/ri'
 import './Modal.css'
-export default function Modal({setModalOpen}) {
-  return (
+import { LoginContext } from '../context/LoginContex'
+export default function Modal() {
+  const {setUserLogin, setModalOpen, userLogin,} = useContext(LoginContext)
+  const logout=()=>{
+    console.log(userLogin)
+    localStorage.removeItem('jwt') 
+    setModalOpen(false)
+    setUserLogin(false)
+      console.log(userLogin)
+  }
+    return (
     <div className="darkBg">
         <div className="centered">
         <div className='modal'>
@@ -12,12 +21,12 @@ export default function Modal({setModalOpen}) {
       <button  className='closeBtn'>
         <RiCloseLine></RiCloseLine>
       </button>
-      <div onClick={()=>{localStorage.removeItem('jwt')}} className="modalContent">
+      <div  className="modalContent">
         Are you Really want to log Out?
       </div>
       <div className="modalActions">
-        <button className="logOutBtn">Log Out</button>
-        <button className='cancelBtn'>Cancel</button>
+        <button className="logOutBtn" onClick={()=>{logout()}}>Log Out</button>
+        <button className='cancelBtn' onClick={()=>{setModalOpen(false)}}>Cancel</button>
       </div>
     </div>
     </div>

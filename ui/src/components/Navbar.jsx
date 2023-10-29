@@ -11,20 +11,25 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Createpost from './Createpost'
 import Modal from './Modal'
-export default function Navbar(login,modalOpen) {
-  const {setModalOpen} = useContext(LoginContext)
+export default function Navbar() {
+  const {userLogin,modalOpen, setModalOpen} = useContext(LoginContext) 
+  let login = userLogin;
   const token= localStorage.getItem('jwt')
- const loginStatus=()=>{ if(token||login){
+  const open=()=>{
+    setModalOpen(true)
+  }
+ const loginStatus=()=>{ if(token || login){
     return(
       <>
           <Link to={'/profile'}><li>Profile</li></Link>
           <Link to={'/createPost'}><li>Create Post</li></Link>
           <Link to={""}>
-            <button className='primaryBtn' onClick={setModalOpen(true)}>Log Out</button>
+            <button className='primaryBtn' onClick={open} >Log Out</button>
           </Link>
       </>
     )
-  }else{
+  }
+  else{
     <>
          <Link to={'/signup'}><li>SignUp</li></Link>
          <Link to={'/signin'}><li>SignIn</li></Link>
