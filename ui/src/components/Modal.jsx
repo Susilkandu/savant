@@ -1,24 +1,29 @@
 import React ,{useContext}from 'react'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
 import {RiCloseLine} from 'react-icons/ri'
 import './Modal.css'
 import { LoginContext } from '../context/LoginContex'
 export default function Modal() {
+  const navigate = useNavigate();
   const {setUserLogin, setModalOpen, userLogin,} = useContext(LoginContext)
   const logout=()=>{
     console.log(userLogin)
     localStorage.removeItem('jwt') 
-    setModalOpen(false)
     setUserLogin(false)
-      console.log(userLogin)
+    setModalOpen(false)
+    toast.success('logut')
+    navigate('/signup')
+
   }
     return (
-    <div className="darkBg">
+    <div className="darkBg" onClick={()=>{setModalOpen(false)}}>
         <div className="centered">
         <div className='modal'>
       <div className="modalHeader">
         <h5 className="heading">Confirm</h5>
       </div>
-      <button  className='closeBtn'>
+      <button  className='closeBtn' onClick={()=>{setModalOpen(false)}}>
         <RiCloseLine></RiCloseLine>
       </button>
       <div  className="modalContent">

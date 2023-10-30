@@ -19,7 +19,7 @@ mongoose.connect(url, {
 });
 // route
 app.use(require("./routes/auth"))
-app.use(require('./routes/createPost'))
+app.use(require('./routes/userRoutes'))
 // server
 app.listen(PORT,()=>{
     console.log(`Server is running on http://localhost:${PORT}`)

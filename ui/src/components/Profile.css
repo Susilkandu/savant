@@ -1,6 +1,6 @@
 .profile
 {
-    max-width: 600px;
+    max-width: 700px;
     margin: 10px auto;
     text-align: center;
 }
@@ -30,9 +30,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border: 2px solid black;
+    border-radius: 4px;
 }
 .gallery img{
-    width: 30%;
-    margin-top: 1rem;
-
+    width: 33%;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
 }

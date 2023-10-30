@@ -8,6 +8,7 @@ export default function Createpost() {
     const [picurl, setpicUrl] = useState("")
     const navigate = useNavigate()
     const postForm = ()=>{
+        console.log(picurl)
         fetch("http://localhost:3000/createpost",{
             method:"post",
             headers:{
@@ -38,7 +39,6 @@ export default function Createpost() {
             body: data
         }).then(res=> res.json())
         .then(data=> {setpicUrl(data.url)
-            console.log("hello"+ picurl)
             postForm()
     })
     .catch(err => toast.error(error))
