@@ -14,6 +14,8 @@ const postSchema = new mongoose.Schema({
     type: ObjectId,
     required:true,
     ref: 'user'
-    }
+    },
+    likes:[{type:ObjectId, ref:'user',unique:true}]
+    
 })
 mongoose.model('post',postSchema);

@@ -38,6 +38,7 @@ export default function SignIn() {
       {
         toast.success('Signed In Succussfully',{progress: 1})
         localStorage.setItem("jwt",data.message)
+        localStorage.setItem("user",JSON.stringify(data.user))
         setUserLogin(true)
         navigate("/")
       }
