@@ -24,6 +24,7 @@ router.post("/createPost", requireLogin, (req, res) => {
 router.get("/allposts", requireLogin, (req, res) => {
     post.find()
         .populate("postedBy", "_id name")
+        .populate("comments.postedBy","_id name")
         .then(posts => res.json(posts))
         .catch(err => res.json({ error: err }))
 })
@@ -67,7 +68,8 @@ router.put("/comment",requireLogin,(req,res)=>{
     if(comment.comment){
         post.findByIdAndUpdate(req.body.postId,{
             $addToSet:{comments:comment}
-        },{new:true}).populate("comments.postedBy","_id name").then((data)=>{
+        },{new:true}).populate("postedBy","_id name")
+        .populate("comments.postedBy","_id name").then((data)=>{
             res.json(data)
         }).catch((err)=>{
           console.log(err)

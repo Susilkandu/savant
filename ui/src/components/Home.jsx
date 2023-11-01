@@ -1,10 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext} from 'react'
+import {BsSuitHeart, BsFillSuitHeartFill} from 'react-icons/bs'
+import {BiSolidCommentAdd} from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
+import { LoginContext } from '../context/LoginContex'
+import { toast } from 'react-toastify'
 export default function Home() {
   const navigate = useNavigate()
+  const {viewcomment,setViewcomment} = useContext(LoginContext)
   const [posts, setPosts] = useState([])
   const [comment, setComment] = useState("")
+  const [item, setItem] = useState([])
+  const controlLikeButton =(data)=>{
+    const newData = posts.map((post)=>{
+      if(post._id == data._id )
+      {
+        return data
+      }
+      else{
+        return post
+      }
+    })
+    setPosts(newData)
+  }
   const postComment=async(postId)=>{
     console.log(comment)
     await fetch("http://localhost:3000/comment",{
@@ -18,7 +36,11 @@ export default function Home() {
         comment
       })
     }).then((res)=>res.json())
-    .then(res=>console.log(res))
+    .then(res=>{
+      setComment("");
+      controlLikeButton(res)
+      toast.success("Posted")
+    })
     .catch((err)=>console.log(err))
   }
   const fetchposts = async () => {
@@ -32,18 +54,7 @@ export default function Home() {
       .then(res => setPosts(res))
       .catch(err => console.log(err))
   }
-  const controlLikeButton =(data)=>{
-    const newData = posts.map((post)=>{
-      if(post._id == data._id )
-      {
-        return data
-      }
-      else{
-        return post
-      }
-    })
-    setPosts(newData)
-  }
+
   const like = async (postId) => {
     await fetch('http://localhost:3000/like', {
       method: 'put',
@@ -102,15 +113,19 @@ export default function Home() {
               <div className="card-content">
                 {
                   post.likes.includes(JSON.parse(localStorage.getItem('user'))._id) ?
-                  (  <span className="material-symbols-outlined material-symbols-outlined-red" onClick={() => { unlike(post._id) }}>unlike</span> ):
-                   ( <span className="material-symbols-outlined" onClick={() => { like(post._id) }}>favorite</span>)
+                  (  
+                  <span className="red heart" onClick={() => { unlike(post._id) }}><BsFillSuitHeartFill></BsFillSuitHeartFill></span> ):
+                   ( <span className='heart' onClick={() => { like(post._id) }}><BsSuitHeart></BsSuitHeart></span>)
                 }
                 <p>{post.likes.length} Like</p>
                 <p>{post.body}</p>
+                <p style={{fontWeight:"bold", cursor:"pointer"}} onClick={()=>{setViewcomment(true);
+                   setItem(post)
+                   console.log(item)}} >View all comments</p>
               </div>
               <div className="add-comment">
-                <span className="material-symbols-outlined">sentiment_satisfied</span>
-                <input type="text" onChange={(e)=>{setComment(e.target.value)}}  placeholder='Add a Comment' />
+                <span className='heart'><BiSolidCommentAdd></BiSolidCommentAdd></span>
+                <input type="text" value={comment} onChange={(e)=>{setComment(e.target.value)}}  placeholder='Add a Comment' />
                 <button className="comment" onClick={()=>{postComment(post._id)}}>Post</button>
               </div>
             </div>
@@ -118,31 +133,44 @@ export default function Home() {
         )
         
       })}
-      <div className="showComment">
-                <div className="container">
-                  <div className="postpic">
-                    <img src="http://res.cloudinary.com/kanducloud/image/upload/v1698574318/xkcjn3nksrkatiogv5eb.png" alt="" />
-                  </div>
-                  <div className="details">
-                  <div className="card-header">
-                <div className="card-pic" >
-                  <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=1480&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-                </div>
-                <h5>Sushil Kandu</h5>
-              </div>
-              <div className="comment-section"></div>
-              <div className="card-content">
-                <p>78934789 Like</p>
-                <p>awesome Post</p>
-              </div>
-              <div className="add-comment">
-                <span className="material-symbols-outlined">sentiment_satisfied</span>
-                <input type="text" onChange={(e)=>{setComment(e.target.value)}}  placeholder='Add a Comment' />
-                <button className="comment" onClick={()=>{postComment(post._id)}}>Post</button>
-              </div>
-                  </div>
-                </div>
-              </div>  
+   {viewcomment && (<div className="showComment">
+    <div className="container">
+      <div className="postpic">
+        <img src={item.picUrl} alt="" />
+      </div>
+      <div className="details">
+      <div className="card-header">
+    <div className="card-pic" >
+      <img src={item.picUrl} alt="" />
+    </div>
+    <h5 style={{fontWeight:"bold", fontSize:"large"}}>{item.postedBy.name}</h5>
+  </div>
+  <div className="comment-section">
+   {item.comments.map((cmt)=>{
+     return(
+      <p className="cmnt">
+     <span className="cmtr" style={{fontWeight:"bold", textTransform:"lowercase"}}>{cmt.postedBy.name}</span>
+     <span className="cmtext" style={{marginLeft:"1rem"}}>{cmt.comment}</span>
+   </p>
+     )
+   })}
+  </div>
+  <div className="card-content">
+    <p>{item.likes.length}Like</p>
+    <p>{item.body}</p>
+  </div>
+  <div className="add-comment">
+    <span className='heart'><BiSolidCommentAdd></BiSolidCommentAdd></span>
+    <input type="text" onChange={(e)=>{setComment(e.target.value)}}  placeholder='Add a Comment' />
+    <button className="comment" onClick={()=>{postComment(item._id)}}>Post</button>
+  </div>
+      </div>
+      <div className="close-comment" onClick={()=>{setViewcomment(false)}}>
+    <span className="material-symbols-outlined">close</span>
+    </div>
+    </div>
+  </div>  )
+   }
     </div>
   )
   

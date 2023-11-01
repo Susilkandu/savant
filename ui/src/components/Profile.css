@@ -1,7 +1,8 @@
 .profile
 {
     max-width: 700px;
-    margin: 10px auto;
+    padding-top: 4rem;
+    margin: auto;
     text-align: center;
 }
 .profile-frame
@@ -11,6 +12,9 @@
 }
 .profile-pic{
     height: fit-content;
+    box-shadow: 2px 6px 25px #0A1EF0;
+    border-radius: 3.5rem;
+    background-color: black;
 }
 .profile-pic>img{
     width:5rem;

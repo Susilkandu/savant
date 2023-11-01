@@ -3,12 +3,17 @@ img{
     object-fit: contain;
 }
 .navbar{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-around;
-    box-shadow: 1px 5px 5px rgb(126, 123, 123);
+    background-color: rgb(8, 204, 204);
 }
 .nav-menu{
     width:40%;

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useContext} from 'react'
 import { LoginContext } from '../context/LoginContex'
 import logo from '../assets/icon.png'
 import './Navbar.css'
