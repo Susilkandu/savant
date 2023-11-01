@@ -59,4 +59,19 @@ router.put("/unlike", requireLogin, (req, res) => {
         return res.json({message:"Please Add All Fields"})
     }
 })
+router.put("/comment",requireLogin,(req,res)=>{
+    const comment={
+        comment:req.body.comment,
+        postedBy:req.user._id
+    }
+    if(comment.comment){
+        post.findByIdAndUpdate(req.body.postId,{
+            $addToSet:{comments:comment}
+        },{new:true}).populate("comments.postedBy","_id name").then((data)=>{
+            res.json(data)
+        }).catch((err)=>{
+          console.log(err)
+        })
+    }
+})
 module.exports = router;

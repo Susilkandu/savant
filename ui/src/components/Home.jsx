@@ -4,6 +4,23 @@ import './Home.css'
 export default function Home() {
   const navigate = useNavigate()
   const [posts, setPosts] = useState([])
+  const [comment, setComment] = useState("")
+  const postComment=async(postId)=>{
+    console.log(comment)
+    await fetch("http://localhost:3000/comment",{
+      method:"put",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        postId,
+        comment
+      })
+    }).then((res)=>res.json())
+    .then(res=>console.log(res))
+    .catch((err)=>console.log(err))
+  }
   const fetchposts = async () => {
     const token = localStorage.getItem("jwt")
     await fetch('http://localhost:3000/allposts', {
@@ -93,13 +110,40 @@ export default function Home() {
               </div>
               <div className="add-comment">
                 <span className="material-symbols-outlined">sentiment_satisfied</span>
-                <input type="text" placeholder='Add a Comment' />
-                <button className="comment">Post</button>
+                <input type="text" onChange={(e)=>{setComment(e.target.value)}}  placeholder='Add a Comment' />
+                <button className="comment" onClick={()=>{postComment(post._id)}}>Post</button>
               </div>
             </div>
           </>
         )
+        
       })}
+      <div className="showComment">
+                <div className="container">
+                  <div className="postpic">
+                    <img src="http://res.cloudinary.com/kanducloud/image/upload/v1698574318/xkcjn3nksrkatiogv5eb.png" alt="" />
+                  </div>
+                  <div className="details">
+                  <div className="card-header">
+                <div className="card-pic" >
+                  <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=1480&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                </div>
+                <h5>Sushil Kandu</h5>
+              </div>
+              <div className="comment-section"></div>
+              <div className="card-content">
+                <p>78934789 Like</p>
+                <p>awesome Post</p>
+              </div>
+              <div className="add-comment">
+                <span className="material-symbols-outlined">sentiment_satisfied</span>
+                <input type="text" onChange={(e)=>{setComment(e.target.value)}}  placeholder='Add a Comment' />
+                <button className="comment" onClick={()=>{postComment(post._id)}}>Post</button>
+              </div>
+                  </div>
+                </div>
+              </div>  
     </div>
   )
+  
 }
