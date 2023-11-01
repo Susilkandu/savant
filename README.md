@@ -1,2 +1,2 @@
 # savant
- This is Social medial full stack mern application
+ This is Social Media MERN stack application
