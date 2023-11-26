@@ -43,7 +43,7 @@ export default function Navbar() {
   return (
     <BrowserRouter>
       <div className='navbar'>
-        <img src={logo} alt="" />
+        <Link to={'/'}><img src={logo} alt="" /></Link>
         <ul className='nav-menu'>
           {loginStatus()}
         </ul>

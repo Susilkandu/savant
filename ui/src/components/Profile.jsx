@@ -1,7 +1,11 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState, useContext} from 'react'
 import './Profile.css'
+import PostDetails from './PostDetails'
+import { LoginContext } from '../context/LoginContex'
 export default function Profile() {
+const {showPostDetails,setShowPostDetails} = useContext(LoginContext)
 const [post, setPosts] = useState([])
+const [sPost, setSPost] = useState([])
 useEffect(()=>{
   fetch('http://localhost:3000/myposts',{
     headers:{
@@ -30,10 +34,14 @@ useEffect(()=>{
     <div className="gallery">
     {post.map((post)=>{
         return(
-          <img src={post.picUrl} alt="" key={post._id}/>
+          <img src={post.picUrl} alt="" key={post._id} onClick={()=>{
+            setSPost(post)
+            setShowPostDetails(true)
+          }}/>
         )
     })}
     </div>
+    {showPostDetails && <PostDetails item={sPost} ></PostDetails>}
    </div>
   )
 }

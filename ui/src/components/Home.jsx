@@ -117,9 +117,9 @@ export default function Home() {
                   <span className="red heart" onClick={() => { unlike(post._id) }}><BsFillSuitHeartFill></BsFillSuitHeartFill></span> ):
                    ( <span className='heart' onClick={() => { like(post._id) }}><BsSuitHeart></BsSuitHeart></span>)
                 }
-                <p>{post.likes.length} Like</p>
+                <p style={{lineHeight:"0"}}>{post.likes.length} <b>Like</b></p>
                 <p>{post.body}</p>
-                <p style={{fontWeight:"bold", cursor:"pointer"}} onClick={()=>{setViewcomment(true);
+                <p className = 'vlcomments'onClick={()=>{setViewcomment(true);
                    setItem(post)
                    console.log(item)}} >View all comments</p>
               </div>
@@ -133,7 +133,8 @@ export default function Home() {
         )
         
       })}
-   {viewcomment && (<div className="showComment">
+   {viewcomment && (
+   <div className="showComment">
     <div className="container">
       <div className="postpic">
         <img src={item.picUrl} alt="" />
@@ -169,7 +170,8 @@ export default function Home() {
     <span className="material-symbols-outlined">close</span>
     </div>
     </div>
-  </div>  )
+  </div>
+    )
    }
     </div>
   )

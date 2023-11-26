@@ -6,9 +6,10 @@ function App() {
 const [userLogin, setUserLogin] = useState(false)
 const [modalOpen, setModalOpen] = useState(false)
 const [viewcomment, setViewcomment] = useState(false)
+const [showPostDetails, setShowPostDetails] = useState(false)
   return (
     <>
-    <LoginContext.Provider value={{setUserLogin, setModalOpen, modalOpen, userLogin,viewcomment,setViewcomment}}>
+    <LoginContext.Provider value={{setUserLogin, setModalOpen, modalOpen, userLogin,viewcomment,setViewcomment,showPostDetails,setShowPostDetails}}>
     <Navbar />
     </LoginContext.Provider>
     </>

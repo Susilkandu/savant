@@ -39,10 +39,11 @@ export default function Createpost() {
             body: data
         }).then(res=> res.json())
         .then(data=> {setpicUrl(data.url)
-            postForm()
+            if(picurl){
+                postForm()
+            }
     })
-    .catch(err => toast.error(error))
-    
+    .catch(err => toast.error(error)) 
     }
     const showPreview = (event) => {
         var output = document.getElementById('output')
